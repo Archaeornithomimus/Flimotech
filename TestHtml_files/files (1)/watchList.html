@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlimOtech — Films & Séries à voir</title>
+  <link rel="stylesheet" href="watchList.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ══════════════════════
+       EN-TÊTE
+  ══════════════════════ -->
+  <header class="site-header">
+    <h1 class="site-title">FlimOtech des films et séries à voir</h1>
+  </header>
+
+  <main class="page-wrapper">
+
+    <!-- ══════════════════════
+         PANNEAU FILTRES
+    ══════════════════════ -->
+    <section class="filter-panel" aria-label="Filtres de recherche">
+
+      <!-- Liste déroulante : Films / Séries / Tout -->
+      <div class="filter-block filter-block--select">
+        <label for="content-type" class="filter-select-label">Liste déroulante :</label>
+        <select id="content-type" name="content_type" class="filter-select">
+          <option value="tout">Tout</option>
+          <option value="film">Films</option>
+          <option value="serie">Séries</option>
+        </select>
+      </div>
+
+      <!-- Durée -->
+      <div class="filter-block">
+        <p class="filter-block-title">Durée</p>
+        <label class="cb-item">
+          <input type="checkbox" name="duree" value="lt1h45"/>
+          <span class="cb-box"></span>
+          &lt;1h45
+        </label>
+        <label class="cb-item">
+          <input type="checkbox" name="duree" value="lt2h"/>
+          <span class="cb-box"></span>
+          &lt;2h
+        </label>
+        <label class="cb-item">
+          <input type="checkbox" name="duree" value="gt2h"/>
+          <span class="cb-box"></span>
+          &gt;2h
+        </label>
+      </div>
+
+      <!-- Type / Genre -->
+      <div class="filter-block filter-block--wide">
+        <p class="filter-block-title">Type</p>
+        <div class="cb-grid">
+          <label class="cb-item">
+            <input type="checkbox" name="genre" value="humour"/>
+            <span class="cb-box"></span>Humour
+          </label>
+          <label class="cb-item">
+            <input type="checkbox" name="genre" value="sf"/>
+            <span class="cb-box"></span>Science Fiction
+          </label>
+          <label class="cb-item">
+            <input type="checkbox" name="genre" value="action"/>
+            <span class="cb-box"></span>Action
+          </label>
+          <label class="cb-item">
+            <input type="checkbox" name="genre" value="horreur"/>
+            <span class="cb-box"></span>Horreur
+          </label>
+          <span class="cb-more">…</span>
+        </div>
+      </div>
+
+      <!-- Disponible sur -->
+      <div class="filter-block">
+        <p class="filter-block-title">Disponible sur</p>
+        <div class="cb-grid">
+          <label class="cb-item">
+            <input type="checkbox" name="plateforme" value="amazon"/>
+            <span class="cb-box"></span>Amazon
+          </label>
+          <label class="cb-item">
+            <input type="checkbox" name="plateforme" value="maison"/>
+            <span class="cb-box"></span>Maison
+          </label>
+          <label class="cb-item">
+            <input type="checkbox" name="plateforme" value="netflix"/>
+            <span class="cb-box"></span>Netflix
+          </label>
+          <label class="cb-item">
+            <input type="checkbox" name="plateforme" value="canal"/>
+            <span class="cb-box"></span>Canal
+          </label>
+        </div>
+      </div>
+
+    </section><!-- /.filter-panel -->
+
+    <!-- ══════════════════════
+         GRILLE MOSAÏQUE
+         Django : {% for film in films %}
+    ══════════════════════ -->
+    <section class="mosaic" aria-label="Liste des films et séries">
+
+      <!--
+        ─── TEMPLATE DJANGO ─────────────────────────────────────
+        {% for film in films %}
+        <article class="film-card{% if forloop.first %} selected{% endif %}"
+                 data-id="{{ film.id }}"
+                 data-synopsis="{{ film.synopsis }}">
+          <div class="card-poster">
+            <img src="{{ film.affiche.url }}" alt="{{ film.titre }}" loading="lazy"/>
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">{{ film.titre }}</h2>
+            <div class="card-info-box">
+              <p class="info-box-label">Information sur le film</p>
+              <p class="info-genre">{{ film.categorie }}</p>
+              <p class="info-row">Réalisateur<span>{{ film.realisateur }}</span></p>
+              <p class="info-row">Durée<span>{{ film.duree }}</span></p>
+            </div>
+            <div class="card-platforms">
+              <p class="platforms-label">Disponible sur :</p>
+              <ul class="platforms-list">
+                {% for p in film.plateformes.all %}
+                  <li>{{ p.nom }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+        ─────────────────────────────────────────────────────────
+      -->
+
+      <!-- ── Carte 1 ── -->
+      <article class="film-card selected" data-id="1"
+               data-synopsis="Un groupe d'astronautes voyage à travers un trou de ver pour assurer la survie de l'humanité.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" alt="Interstellar" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Interstellar</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Science-Fiction</p>
+            <p class="info-row">Réalisateur<span>Christopher Nolan</span></p>
+            <p class="info-row">Durée<span>2h 49min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Amazon Prime</li>
+              <li>Netflix</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Carte 2 ── -->
+      <article class="film-card" data-id="2"
+               data-synopsis="La saga d'une puissante famille de la mafia sicilienne implantée aux États-Unis, racontée sur plusieurs générations.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsLlegkAFDfVs.jpg" alt="Le Parrain" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Le Parrain</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Drame</p>
+            <p class="info-row">Réalisateur<span>F. F. Coppola</span></p>
+            <p class="info-row">Durée<span>2h 55min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Canal+</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Carte 3 ── -->
+      <article class="film-card" data-id="3"
+               data-synopsis="Dans un monde post-apocalyptique, Mad Max s'allie à Furiosa pour fuir un tyran sanguinaire à travers le désert.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg" alt="Mad Max: Fury Road" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Mad Max: Fury Road</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Action</p>
+            <p class="info-row">Réalisateur<span>George Miller</span></p>
+            <p class="info-row">Durée<span>2h 00min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Netflix</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Carte 4 ── -->
+      <article class="film-card" data-id="4"
+               data-synopsis="Chihiro, 10 ans, se retrouve piégée dans un monde fantastique peuplé de dieux et d'esprits après que ses parents ont été transformés en cochons.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg" alt="Le Voyage de Chihiro" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Le Voyage de Chihiro</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Animation</p>
+            <p class="info-row">Réalisateur<span>H. Miyazaki</span></p>
+            <p class="info-row">Durée<span>2h 05min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Amazon Prime</li>
+              <li>Maison</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Carte 5 ── -->
+      <article class="film-card" data-id="5"
+               data-synopsis="Un jeune réplicant découvre un secret enfoui qui remet en cause l'existence même de l'humanité.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/xJHokMbljvjADYdit5fK5VQsXEG.jpg" alt="Blade Runner 2049" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Blade Runner 2049</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Science-Fiction</p>
+            <p class="info-row">Réalisateur<span>D. Villeneuve</span></p>
+            <p class="info-row">Durée<span>2h 44min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Netflix</li>
+              <li>Canal+</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Carte 6 ── -->
+      <article class="film-card" data-id="6"
+               data-synopsis="Une famille pauvre s'infiltre habilement dans la vie d'une famille aisée de Séoul, jusqu'à ce que les tensions explosent de façon inattendue.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/lyXCfI3V7AFNDpJuJOURYoOHMzl.jpg" alt="Parasite" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Parasite</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Drame / Thriller</p>
+            <p class="info-row">Réalisateur<span>Bong Joon-ho</span></p>
+            <p class="info-row">Durée<span>2h 12min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Amazon Prime</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Carte 7 ── -->
+      <article class="film-card" data-id="7"
+               data-synopsis="Un écrivain en panne d'inspiration s'installe avec sa famille dans un hôtel isolé pour l'hiver. L'hôtel est hanté et son état mental se détériore rapidement.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg" alt="Shining" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Shining</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Horreur</p>
+            <p class="info-row">Réalisateur<span>Stanley Kubrick</span></p>
+            <p class="info-row">Durée<span>2h 26min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Maison</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Carte 8 ── -->
+      <article class="film-card" data-id="8"
+               data-synopsis="Séquestré 15 ans sans explication dans une chambre, Oh Dae-su est soudainement libéré et dispose de 5 jours pour découvrir pourquoi.">
+        <div class="card-poster">
+          <img src="https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg" alt="Old Boy" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Old Boy</h2>
+          <div class="card-info-box">
+            <p class="info-box-label">Information sur le film</p>
+            <p class="info-genre">Action / Thriller</p>
+            <p class="info-row">Réalisateur<span>Park Chan-wook</span></p>
+            <p class="info-row">Durée<span>2h 00min</span></p>
+          </div>
+          <div class="card-platforms">
+            <p class="platforms-label">Disponible sur :</p>
+            <ul class="platforms-list">
+              <li>Netflix</li>
+              <li>Canal+</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+    </section><!-- /.mosaic -->
+
+    <!-- ══════════════════════
+         PANNEAU DESCRIPTION
+         Affiche le synopsis du film cliqué
+    ══════════════════════ -->
+    <section class="detail-panel" id="detail-panel" aria-label="Description du film sélectionné">
+      <div class="detail-inner" id="detail-inner">
+        <!-- Rempli dynamiquement par JS / ou via Django avec le film sélectionné -->
+        <p class="detail-synopsis" id="detail-synopsis">
+          Un groupe d'astronautes voyage à travers un trou de ver pour assurer la survie de l'humanité.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════
+         PAGINATION
+         Django : {% if films.has_other_pages %}
+    ══════════════════════ -->
+    <nav class="pagination" aria-label="Navigation entre les pages">
+
+      <!-- Django : {% if films.has_previous %} -->
+      <button class="page-btn page-prev" disabled aria-label="Page précédente">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="10 3 5 8 10 13"/></svg>
+      </button>
+
+      <!--
+        Django :
+        {% for i in films.paginator.page_range %}
+          <button class="page-btn {% if films.number == i %}active{% endif %}">{{ i }}</button>
+        {% endfor %}
+      -->
+      <button class="page-btn active" aria-current="page">1</button>
+      <span class="page-sep">/</span>
+      <button class="page-btn page-total">X</button>
+
+      <!-- Django : {% if films.has_next %} -->
+      <button class="page-btn page-next" aria-label="Page suivante">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 3 11 8 6 13"/></svg>
+      </button>
+
+    </nav>
+
+  </main>
+
+  <script>
+    /* ── Clic sur une carte : mise à jour du panneau synopsis ── */
+    const cards      = document.querySelectorAll('.film-card');
+    const synopsisEl = document.getElementById('detail-synopsis');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        const txt = card.dataset.synopsis || '';
+        synopsisEl.textContent = txt;
+      });
+    });
+  </script>
+
+</body>
+</html>
